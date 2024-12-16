@@ -9,10 +9,13 @@
                 , nickname
                 , name
                 , thumbnail_url
+                , follower_count
+                , following_count
+                , post_count
+                , is_active
                 , created_at
            FROM users
           WHERE public_id = #{publicId}
-            AND is_active = 1
     </select>
 
     <select id="existsByPublicId" resultType="boolean">
