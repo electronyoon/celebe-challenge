@@ -1,5 +1,6 @@
 package io.celebe.challenge.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
+    @JsonIgnore
     private Long id;
 
     private String publicId;
@@ -27,7 +29,7 @@ public class User {
     private Integer postCount;
 
     @JsonIgnore
-    private boolean isActive;
+    private Boolean isActive;
     private LocalDateTime createdAt;
     @JsonIgnore
     private LocalDateTime updatedAt;
