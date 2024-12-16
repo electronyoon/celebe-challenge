@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
+    @JsonIgnore
     private Long id;
 
     private String publicId;
@@ -28,7 +29,6 @@ public class User {
 
     @JsonIgnore
     private Boolean isActive;
-    @JsonIgnore
     private LocalDateTime createdAt;
     @JsonIgnore
     private LocalDateTime updatedAt;
