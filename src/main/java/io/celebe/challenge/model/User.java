@@ -27,7 +27,7 @@ public class User {
     private Integer postCount;
 
     @JsonIgnore
-    private Boolean isActive;
+    private boolean isActive;
     private LocalDateTime createdAt;
     @JsonIgnore
     private LocalDateTime updatedAt;
