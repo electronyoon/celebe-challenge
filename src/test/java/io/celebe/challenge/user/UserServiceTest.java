@@ -6,45 +6,66 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@DisplayName("프로필 서비스 테스트")
 @Transactional
+@Sql("/sql/profile-api-test.sql")
 class UserServiceTest {
+
     @Autowired
     private UserService userService;
 
     @Test
-    @DisplayName("유효한 publicId인 경우 프로필을 반환한다")
-    void returnsProfile_whenValidId() {
-        User profile = userService.getProfile("abc123");
+    @DisplayName("정상적인 프로필 조회시 성공")
+    void getProfileSuccess() {
+        User user = userService.getProfile("000001");
 
-        assertNotNull(profile);
-        assertEquals("abc123", profile.getPublicId());
-        assertEquals("test@example.com", profile.getEmail());
-        assertEquals("testuser", profile.getNickname());
-        assertEquals("Test User", profile.getName());
+        assertThat(user).isNotNull();
+        assertThat(user.getPublicId()).isEqualTo("000001");
+        assertThat(user.getEmail()).isEqualTo("active@example.com");
+        assertThat(user.getNickname()).isEqualTo("activeuser");
+        assertThat(user.getName()).isEqualTo("Active User");
+        assertThat(user.getThumbnailUrl()).isEqualTo("https://example.com/thumb/1.jpg");
+        assertThat(user.getFollowerCount()).isZero();
+        assertThat(user.getFollowingCount()).isZero();
     }
 
     @Test
-    @DisplayName("존재하지 않는 publicId인 경우 예외가 발생한다")
-    void throwsException_whenInvalidId() {
-        assertThrows(ResponseStatusException.class, () ->
-                userService.getProfile("nonexistent")
-        );
+    @DisplayName("비활성화된 프로필 조회시 예외 발생")
+    void getInactiveProfile() {
+        assertThatThrownBy(() -> userService.getProfile("000002"))
+                .isInstanceOf(ResponseStatusException.class)
+                .extracting("statusCode")
+                .isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
-    @DisplayName("비활성화된 사용자인 경우 예외가 발생한다")
-    void throwsException_whenInactiveUser() {
-        assertThrows(ResponseStatusException.class, () ->
-                userService.getProfile("def456")
-        );
+    @DisplayName("존재하지 않는 프로필 조회시 예외 발생")
+    void getNonExistentProfile() {
+        assertThatThrownBy(() -> userService.getProfile("999999"))
+                .isInstanceOf(ResponseStatusException.class)
+                .extracting("statusCode")
+                .isEqualTo(HttpStatus.NOT_FOUND);
     }
+
+    @Test
+    @DisplayName("팔로워가 있는 프로필 조회시 카운트 확인")
+    void getProfileWithFollowers() {
+        User user = userService.getProfile("000003");
+
+        assertThat(user).isNotNull();
+        assertThat(user.getPublicId()).isEqualTo("000003");
+        assertThat(user.getFollowerCount()).isEqualTo(2);
+        assertThat(user.getFollowingCount()).isEqualTo(1);
+    }
+
 }
