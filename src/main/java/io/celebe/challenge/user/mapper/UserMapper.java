@@ -8,4 +8,6 @@ public interface UserMapper {
     User selectUserByPublicId(String publicId);
 
     Boolean existsByPublicId(String publicId);
+
+    Long selectIdByPublicId(String publicId);
 }
