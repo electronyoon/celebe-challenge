@@ -28,7 +28,6 @@ public class User {
 
     @JsonIgnore
     private Boolean isActive;
-    @JsonIgnore
     private LocalDateTime createdAt;
     @JsonIgnore
     private LocalDateTime updatedAt;
