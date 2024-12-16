@@ -15,10 +15,10 @@ public class UserService {
     public User getProfile(String publicId) {
         User user = userMapper.selectUserByPublicId(publicId);
         if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다.");
         }
         if (!user.getIsActive()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User is deactivated");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "비활성화된 계정입니다.");
         }
         return user;
     }
