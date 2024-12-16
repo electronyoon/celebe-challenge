@@ -17,7 +17,7 @@ public class UserService {
         if (user == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
-        if (!user.getIsActive()) {
+        if (!user.isActive()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User is deactivated");
         }
         return user;
