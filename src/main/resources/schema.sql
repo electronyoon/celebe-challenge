@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS users (
     following_count INTEGER NOT NULL DEFAULT 0,
     post_count INTEGER NOT NULL DEFAULT 0,
     is_active BOOLEAN NOT NULL DEFAULT 1,
-    deactivated_at DATETIME,
     created_at DATETIME NOT NULL DEFAULT (DATETIME('now')),
     updated_at DATETIME NOT NULL DEFAULT (DATETIME('now'))
 );

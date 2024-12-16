@@ -6,18 +6,18 @@ Celebe 백엔드 개발자 채용 사전 과제 제출 프로젝트입니다. (�
 erDiagram
     USERS {
         INTEGER id PK "autoincrement"
-        CHAR(6) public_id UK "external ID e.g. a12bcd"
+        CHAR(6) public_id UK "외부 ID e.g. a12bcd"
         VARCHAR email UK
         VARCHAR nickname UK
-        TEXT bio "프로필 소개글"
-        VARCHAR link1 "첫번째 링크"
-        VARCHAR link2 "두번째 링크"
+        VARCHAR name
+        TEXT bio
+        VARCHAR link1 "외부링크 1"
+        VARCHAR link2 "외부링크 2"
         VARCHAR thumbnail_url "url/{key}/{size}"
-        INTEGER follower_count "denormalized counter"
-        INTEGER following_count "denormalized counter"
-        INTEGER post_count "denormalized counter"
-        BOOLEAN is_active "soft deletion flag"
-        DATETIME deactivated_at
+        INTEGER follower_count
+        INTEGER following_count
+        INTEGER post_count
+        BOOLEAN is_active "논리적 삭제용 플래그"
         DATETIME created_at
         DATETIME updated_at
     }
@@ -26,7 +26,7 @@ erDiagram
         INTEGER id PK "autoincrement"
         INTEGER follower_id FK
         INTEGER following_id FK
-        BOOLEAN is_activ "soft deletion flag"
+        BOOLEAN is_active "논리적 삭제용 플래그"
         DATETIME created_at
         DATETIME updated_at
     }
