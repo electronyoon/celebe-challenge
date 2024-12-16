@@ -3,8 +3,10 @@ package io.celebe.challenge.follow.service;
 import io.celebe.challenge.follow.mapper.FollowMapper;
 import io.celebe.challenge.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -21,18 +23,18 @@ public class FollowService {
 
         // 2. 유효성 검증
         if (followerId == null) {
-            throw new IllegalArgumentException("현재 유저를 찾을 수 없거나 비활성화된 계정입니다.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "현재 유저를 찾을 수 없거나 비활성화된 계정입니다.");
         }
         if (followingId == null) {
-            throw new IllegalArgumentException("팔로우하려는 계정을 찾을 수 없거나 비활성화된 계정입니다.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "팔로우하려는 계정을 찾을 수 없거나 비활성화된 계정입니다.");
         }
         if (followerId.equals(followingId)) {
-            throw new IllegalArgumentException("자기 자신을 팔로우할 수 없습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "자기 자신을 팔로우할 수 없습니다.");
         }
 
         // 3. 이미 활성화된 팔로우 관계가 있는지 확인
         if (followMapper.selectActiveFollow(followerId, followingId) > 0) {
-            throw new IllegalStateException("이미 팔로우하고 있는 계정입니다.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "이미 팔로우하고 있는 계정입니다.");
         }
 
         // 4. 비활성화된 것을 포함하여 팔로우 관계 확인
@@ -57,15 +59,15 @@ public class FollowService {
 
         // 2. 유효성 검증
         if (followerId == null) {
-            throw new IllegalArgumentException("현재 유저를 찾을 수 없거나 비활성화된 계정입니다.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "현재 유저를 찾을 수 없거나 비활성화된 계정입니다.");
         }
         if (followingId == null) {
-            throw new IllegalArgumentException("언팔로우하려는 계정을 찾을 수 없거나 비활성화된 계정입니다.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "언팔로우하려는 계정을 찾을 수 없거나 비활성화된 계정입니다.");
         }
 
         // 3. 팔로우 관계 확인
         if (followMapper.selectActiveFollow(followerId, followingId) == 0) {
-            throw new IllegalStateException("팔로우하고 있지 않은 계정입니다.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "팔로우하고 있지 않은 계정입니다.");
         }
 
         // 4. 팔로우 관계 비활성화 및 카운트 업데이트
