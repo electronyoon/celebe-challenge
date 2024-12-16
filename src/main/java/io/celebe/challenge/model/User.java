@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
     private Long id;
+
     private String publicId;
     private String email;
     private String nickname;
@@ -20,6 +21,7 @@ public class User {
     private String link1;
     private String link2;
     private String thumbnailUrl;
+
     private Integer followerCount;
     private Integer followingCount;
     private Integer postCount;
@@ -27,12 +29,8 @@ public class User {
     @JsonIgnore
     private Boolean isActive;
     @JsonIgnore
-    private LocalDateTime deactivatedAt;
     private LocalDateTime createdAt;
     @JsonIgnore
     private LocalDateTime updatedAt;
-
-    private Boolean isFollowing;
-    private Boolean isFollowedBy;
 }
 
