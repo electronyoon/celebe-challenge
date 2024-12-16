@@ -1,4 +1,4 @@
-package io.celebe.challenge.domain.follow.mapper;
+package io.celebe.challenge.follow.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

@@ -1,6 +1,6 @@
-package io.celebe.challenge.domain.profile.controller;
+package io.celebe.challenge.follow.controller;
 
-import io.celebe.challenge.domain.profile.service.ProfileService;
+import io.celebe.challenge.follow.service.FollowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/profiles")
 @RequiredArgsConstructor
-public class ProfileController {
-    private final ProfileService profileService;
+public class FollowController {
+    private final FollowService followService;
 
 }
-

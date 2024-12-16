@@ -1,6 +1,6 @@
-package io.celebe.challenge.domain.follow.service;
+package io.celebe.challenge.follow.service;
 
-import io.celebe.challenge.domain.follow.mapper.FollowMapper;
+import io.celebe.challenge.follow.mapper.FollowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
