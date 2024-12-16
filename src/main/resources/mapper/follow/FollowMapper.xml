@@ -2,4 +2,74 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.celebe.challenge.follow.mapper.FollowMapper">
 
+    <select id="selectFollow" resultType="Integer">
+        SELECT COUNT(*)
+          FROM follows
+         WHERE follower_id = #{followerId}
+           AND following_id = #{followingId}
+    </select>
+
+    <select id="selectActiveFollow" resultType="Integer">
+        SELECT COUNT(*)
+          FROM follows
+         WHERE follower_id = #{followerId}
+           AND following_id = #{followingId}
+           AND is_active = 1
+    </select>
+
+    <update id="updateFollowActive">
+        UPDATE follows
+           SET is_active = 1
+             , updated_at = DATETIME('now')
+         WHERE follower_id = #{followerId}
+           AND following_id = #{followingId}
+           AND is_active = 0
+    </update>
+
+    <insert id="insertFollow">
+        INSERT INTO follows
+            ( follower_id
+            , following_id)
+        VALUES
+            ( #{followerId}
+            , #{followingId})
+    </insert>
+
+    <update id="updateFollowInactive">
+        UPDATE follows
+           SET is_active = 0
+             , updated_at = DATETIME('now')
+         WHERE follower_id = #{followerId}
+           AND following_id = #{followingId}
+           AND is_active = 1
+    </update>
+
+    <update id="updateFollowerCountIncrement">
+        UPDATE users
+           SET follower_count = follower_count + 1
+             , updated_at = DATETIME('now')
+         WHERE id = #{userId}
+    </update>
+
+    <update id="updateFollowerCountDecrement">
+        UPDATE users
+           SET follower_count = follower_count - 1
+             , updated_at = DATETIME('now')
+         WHERE id = #{userId}
+    </update>
+
+    <update id="updateFollowingCountIncrement">
+        UPDATE users
+           SET following_count = following_count + 1
+             , updated_at = DATETIME('now')
+         WHERE id = #{userId}
+    </update>
+
+    <update id="updateFollowingCountDecrement">
+        UPDATE users
+           SET following_count = following_count - 1
+             , updated_at = DATETIME('now')
+         WHERE id = #{userId}
+    </update>
+
 </mapper>
