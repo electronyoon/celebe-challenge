@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.celebe.challenge.follow.mapper.FollowListMapper">
+
+    <select id="selectFollowers" resultType="UserProfileDto">
+        SELECT u.public_id
+             , u.nickname
+             , u.name
+             , u.thumbnail_url
+             , EXISTS (
+                  SELECT 1
+                    FROM follows f2
+                   WHERE f2.follower_id = f.following_id
+                     AND f2.following_id = f.follower_id
+                     AND f2.is_active = 1
+               ) as is_followed_back
+          FROM follows f
+          JOIN users u
+            ON f.follower_id = u.id
+         WHERE f.following_id = #{userId}
+           AND f.is_active = 1
+           AND u.is_active = 1
+      ORDER BY is_followed_back DESC, public_id
+    </select>
+
+    <select id="selectFollowings" resultType="UserProfileDto">
+        SELECT u.public_id
+             , u.nickname
+             , u.name
+             , u.thumbnail_url
+             , EXISTS (
+                  SELECT 1
+                    FROM follows f2
+                   WHERE f2.follower_id = f.following_id
+                     AND f2.following_id = f.follower_id
+                     AND f2.is_active = 1
+               ) as is_followed_back
+          FROM follows f
+          JOIN users u
+            ON f.following_id = u.id
+         WHERE f.follower_id = #{userId}
+           AND f.is_active = 1
+           AND u.is_active = 1
+      ORDER BY is_followed_back DESC, public_id
+    </select>
+
+</mapper>
