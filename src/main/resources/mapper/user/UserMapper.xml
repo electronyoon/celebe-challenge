@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.celebe.challenge.user.repository.UserRepository">
 
-    <select id="selectUserByPublicId" resultType="User">
+    <select id="findByPublicId" resultType="User">
          SELECT id
               , public_id
               , email
@@ -18,16 +18,7 @@
           WHERE public_id = #{publicId}
     </select>
 
-    <select id="existsByPublicId" resultType="boolean">
-        SELECT EXISTS
-             ( SELECT 1
-                 FROM users
-                WHERE public_id = #{publicId}
-                  AND is_active = 1
-             )
-    </select>
-
-    <select id="selectIdByPublicId" resultType="Long">
+    <select id="findIdByPublicId" resultType="Long">
         SELECT id
           FROM users
          WHERE public_id = #{publicId}

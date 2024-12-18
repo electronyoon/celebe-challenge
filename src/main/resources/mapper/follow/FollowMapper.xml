@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.celebe.challenge.follow.repository.FollowRepository">
 
-    <select id="selectFollow" resultType="Integer">
+    <select id="findFollow" resultType="Integer">
         SELECT COUNT(*)
           FROM follows
          WHERE follower_id = #{followerId}
            AND following_id = #{followingId}
     </select>
 
-    <select id="selectActiveFollow" resultType="Integer">
+    <select id="findActiveFollow" resultType="Integer">
         SELECT COUNT(*)
           FROM follows
          WHERE follower_id = #{followerId}
@@ -17,7 +17,7 @@
            AND is_active = 1
     </select>
 
-    <update id="updateFollowActive">
+    <update id="save">
         UPDATE follows
            SET is_active = 1
              , updated_at = DATETIME('now')
@@ -26,7 +26,7 @@
            AND is_active = 0
     </update>
 
-    <insert id="insertFollow">
+    <insert id="updateActive">
         INSERT INTO follows
             ( follower_id
             , following_id)
@@ -35,7 +35,7 @@
             , #{followingId})
     </insert>
 
-    <update id="updateFollowInactive">
+    <update id="updateInactive">
         UPDATE follows
            SET is_active = 0
              , updated_at = DATETIME('now')
