@@ -1,24 +1,24 @@
-package io.celebe.challenge.follow.mapper;
+package io.celebe.challenge.follow.repository;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-public interface FollowMapper {
+public interface FollowRepository {
     // 팔로우 관계 조회
-    Integer selectFollow(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
+    Integer findFollow(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
 
     // 활성화된 팔로우 관계만 조회
-    Integer selectActiveFollow(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
+    Integer findActiveFollow(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
 
     // 팔로우 관계 생성
-    void insertFollow(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
+    void save(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
 
     // 팔로우 관계 비활성화 (언팔로우)
-    void updateFollowInactive(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
+    void updateActive(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
 
     // 비활성화된 팔로우 관계를 다시 활성화
-    void updateFollowActive(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
+    void updateInactive(@Param("followerId") Long followerId, @Param("followingId") Long followingId);
 
     // 팔로워/팔로잉 카운트 업데이트
     void updateFollowerCountIncrement(@Param("userId") Long userId);
