@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
-@Sql("/sql/profile-api-test.sql")
+@Sql("/test-sql/profile-api-test.sql")
 class ProfileApiTest {
     @Autowired
     private MockMvc mockMvc;
