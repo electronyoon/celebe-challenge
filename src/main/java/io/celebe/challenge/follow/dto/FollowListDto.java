@@ -1,5 +1,6 @@
-package io.celebe.challenge.model.dto;
+package io.celebe.challenge.follow.dto;
 
+import io.celebe.challenge.user.dto.UserProfileDto;
 import lombok.*;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 @Getter
 @Builder
 @ToString
-public class FollowListResponseDto {
+public class FollowListDto {
     private List<UserProfileDto> users;
     private Integer totalCount;
 }
