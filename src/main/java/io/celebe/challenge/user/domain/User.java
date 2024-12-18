@@ -1,4 +1,4 @@
-package io.celebe.challenge.model;
+package io.celebe.challenge.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
