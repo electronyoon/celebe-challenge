@@ -1,12 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:celebe.db
-    username: sa
-    password: sa
+    url: jdbc:sqlite:celebe-local.db
   sql:
     init:
-      mode: always
       schema-locations: classpath:schema.sql
 
 mybatis:
@@ -14,3 +11,13 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: io.celebe.**.model
+
+logging:
+  level:
+    root: info
+    io.celebe.challenge: debug
+    org.mybatis: debug
+    org.springframework:
+      jdbc: debug
+      test: debug
+      transaction: debug

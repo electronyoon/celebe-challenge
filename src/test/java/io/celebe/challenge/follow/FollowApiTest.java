@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
-@Sql("/sql/follow-api-test.sql")
+@Sql("/test-sql/follow-api-test.sql")
 class FollowApiTest {
 
     @Autowired
@@ -37,8 +37,8 @@ class FollowApiTest {
     @Test
     @DisplayName("이미 팔로우한 계정을 팔로우할 경우 409 Conflict를 반환한다")
     void followDuplicate() throws Exception {
-        mockMvc.perform(post("/api/profiles/{publicId}/follow", "000003")
-                        .header("CUSTOM-AUTH-ID", "000002"))
+        mockMvc.perform(post("/api/profiles/{publicId}/follow", "000002")
+                        .header("CUSTOM-AUTH-ID", "000001"))
                 .andDo(print())
                 .andExpect(status().isConflict());
     }
@@ -55,7 +55,7 @@ class FollowApiTest {
     @Test
     @DisplayName("존재하지 않는 계정을 팔로우할 경우 404 Not Found를 반환한다")
     void followNonExistent() throws Exception {
-        mockMvc.perform(post("/api/profiles/{publicId}/follow", "999999")
+        mockMvc.perform(post("/api/profiles/{publicId}/follow", "000005")
                         .header("CUSTOM-AUTH-ID", "000001"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
@@ -64,8 +64,8 @@ class FollowApiTest {
     @Test
     @DisplayName("정상적인 언팔로우 요청시 200 OK를 반환한다")
     void unfollowSuccess() throws Exception {
-        mockMvc.perform(delete("/api/profiles/{publicId}/follow", "000003")
-                        .header("CUSTOM-AUTH-ID", "000002"))
+        mockMvc.perform(delete("/api/profiles/{publicId}/follow", "000002")
+                        .header("CUSTOM-AUTH-ID", "000001"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

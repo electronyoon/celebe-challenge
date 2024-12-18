@@ -1,6 +1,6 @@
 package io.celebe.challenge.user.controller;
 
-import io.celebe.challenge.model.User;
+import io.celebe.challenge.user.domain.User;
 import io.celebe.challenge.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

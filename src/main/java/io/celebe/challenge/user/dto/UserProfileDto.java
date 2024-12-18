@@ -1,4 +1,4 @@
-package io.celebe.challenge.model.dto;
+package io.celebe.challenge.user.dto;
 
 import lombok.Getter;
 import lombok.ToString;

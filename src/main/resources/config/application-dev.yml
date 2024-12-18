@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: # ${DEV_DB}
+    username: # ${DEV_USERNAME}
+    password: # ${DEV_PASSWORD}
+    # pool 또는 timeout 설정
+  sql:
+    init:
+      mode: never # 개발 환경 스키마를 따름
+
+logging:
+  level:
+    root: info

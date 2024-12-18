@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
-@Sql("/sql/follow-api-test.sql")
+@Sql("/test-sql/follow-api-test.sql")
 class FollowListApiTest {
 
     @Autowired

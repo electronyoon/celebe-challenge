@@ -1,9 +1,9 @@
 package io.celebe.challenge.follow.service;
 
-import io.celebe.challenge.follow.mapper.FollowListMapper;
-import io.celebe.challenge.model.dto.FollowListResponseDto;
-import io.celebe.challenge.model.dto.UserProfileDto;
-import io.celebe.challenge.user.mapper.UserMapper;
+import io.celebe.challenge.follow.repository.FollowListRepository;
+import io.celebe.challenge.follow.dto.FollowListDto;
+import io.celebe.challenge.user.dto.UserProfileDto;
+import io.celebe.challenge.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,32 +14,32 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FollowListService {
-    private final FollowListMapper followListMapper;
-    private final UserMapper userMapper;
+    private final FollowListRepository followListRepository;
+    private final UserRepository userRepository;
 
-    public FollowListResponseDto getFollowers(String publicId) {
-        Long userId = userMapper.selectIdByPublicId(publicId);
+    public FollowListDto getFollowers(String publicId) {
+        Long userId = userRepository.findIdByPublicId(publicId);
         if (userId == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다.");
         }
 
-        List<UserProfileDto> followers = followListMapper.selectFollowers(userId);
+        List<UserProfileDto> followers = followListRepository.selectFollowers(userId);
 
-        return FollowListResponseDto.builder()
+        return FollowListDto.builder()
             .users(followers)
             .totalCount(followers.size())
             .build();
     }
 
-    public FollowListResponseDto getFollowing(String publicId) {
-        Long userId = userMapper.selectIdByPublicId(publicId);
+    public FollowListDto getFollowing(String publicId) {
+        Long userId = userRepository.findIdByPublicId(publicId);
         if (userId == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다.");
         }
 
-        List<UserProfileDto> following = followListMapper.selectFollowings(userId);
+        List<UserProfileDto> following = followListRepository.selectFollowings(userId);
 
-        return FollowListResponseDto.builder()
+        return FollowListDto.builder()
             .users(following)
             .totalCount(following.size())
             .build();

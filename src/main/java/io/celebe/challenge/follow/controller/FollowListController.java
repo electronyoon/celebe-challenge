@@ -1,7 +1,7 @@
 package io.celebe.challenge.follow.controller;
 
 import io.celebe.challenge.follow.service.FollowListService;
-import io.celebe.challenge.model.dto.FollowListResponseDto;
+import io.celebe.challenge.follow.dto.FollowListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +13,12 @@ public class FollowListController {
     private final FollowListService followListService;
 
     @GetMapping("/followers")
-    public ResponseEntity<FollowListResponseDto> getFollowers(@PathVariable String publicId) {
+    public ResponseEntity<FollowListDto> getFollowers(@PathVariable String publicId) {
         return ResponseEntity.ok(followListService.getFollowers(publicId));
     }
 
     @GetMapping("/following")
-    public ResponseEntity<FollowListResponseDto> getFollowing(@PathVariable String publicId) {
+    public ResponseEntity<FollowListDto> getFollowing(@PathVariable String publicId) {
         return ResponseEntity.ok(followListService.getFollowing(publicId));
     }
 }
