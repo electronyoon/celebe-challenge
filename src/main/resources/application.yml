@@ -21,3 +21,13 @@ logging:
       jdbc: debug
       test: debug
       transaction: debug
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    url: /v3/api-docs
+    disable-swagger-default-url: true
+    doc-expansion: list
+    try-it-out-enabled: true

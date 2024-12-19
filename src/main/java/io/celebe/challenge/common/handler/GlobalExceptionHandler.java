@@ -1,6 +1,6 @@
 package io.celebe.challenge.common.handler;
 
-import io.celebe.challenge.common.exception.ApiException;
+import io.celebe.challenge.common.exception.CelebeApiException;
 import io.celebe.challenge.common.response.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,8 +33,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-    @ExceptionHandler(ApiException.class)
-    protected ResponseEntity<ErrorResponse> handleApiException(ApiException ex) {
+    @ExceptionHandler(CelebeApiException.class)
+    protected ResponseEntity<ErrorResponse> handleApiException(CelebeApiException ex) {
         ErrorResponse response = ErrorResponse.of(
             ex.getStatus().value(),
             ex.getStatus().getReasonPhrase(),
