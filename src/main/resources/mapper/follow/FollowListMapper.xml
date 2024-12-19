@@ -4,9 +4,14 @@
 
     <select id="findFollowers" resultType="UserProfileDto">
         SELECT u.public_id
+             , u.email
              , u.nickname
              , u.name
              , u.thumbnail_url
+             , u.follower_count
+             , u.following_count
+             , u.post_count
+             , u.created_at
              , EXISTS (
                   SELECT 1
                     FROM follows f2
@@ -25,9 +30,14 @@
 
     <select id="findFollowings" resultType="UserProfileDto">
         SELECT u.public_id
+             , u.email
              , u.nickname
              , u.name
              , u.thumbnail_url
+             , u.follower_count
+             , u.following_count
+             , u.post_count
+             , u.created_at
              , EXISTS (
                   SELECT 1
                     FROM follows f2
