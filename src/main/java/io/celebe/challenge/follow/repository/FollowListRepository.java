@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface FollowListRepository {
-    List<UserProfileDto> selectFollowers(@Param("userId") Long userId);
+    List<UserProfileDto> findFollowers(@Param("userId") Long userId);
 
-    List<UserProfileDto> selectFollowings(@Param("userId") Long userId);
+    List<UserProfileDto> findFollowings(@Param("userId") Long userId);
 }

@@ -23,7 +23,7 @@ public class FollowListService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다.");
         }
 
-        List<UserProfileDto> followers = followListRepository.selectFollowers(userId);
+        List<UserProfileDto> followers = followListRepository.findFollowers(userId);
 
         return FollowListDto.builder()
             .users(followers)
@@ -37,7 +37,7 @@ public class FollowListService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다.");
         }
 
-        List<UserProfileDto> following = followListRepository.selectFollowings(userId);
+        List<UserProfileDto> following = followListRepository.findFollowings(userId);
 
         return FollowListDto.builder()
             .users(following)
