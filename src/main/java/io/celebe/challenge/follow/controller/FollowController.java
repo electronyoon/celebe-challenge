@@ -2,9 +2,11 @@ package io.celebe.challenge.follow.controller;
 
 import io.celebe.challenge.follow.service.FollowService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/profiles/{publicId}")
 @RequiredArgsConstructor
@@ -21,7 +23,9 @@ public class FollowController {
     @PostMapping("/follow")
     public ResponseEntity<Void> follow( @PathVariable("publicId") String followingPublicId,
                                         @RequestHeader("CUSTOM-AUTH-ID") String followerPublicId ) {
+        log.debug("팔로우 요청: follower={}, following={}", followerPublicId, followingPublicId);
         followService.follow(followerPublicId, followingPublicId);
+        log.debug("팔로우 완료: follower={}, following={}", followerPublicId, followingPublicId);
         return ResponseEntity.ok().build();
     }
 
@@ -35,7 +39,9 @@ public class FollowController {
     @DeleteMapping("/follow")
     public ResponseEntity<Void> unfollow( @PathVariable("publicId") String followingPublicId,
                                           @RequestHeader("CUSTOM-AUTH-ID") String followerPublicId ) {
+        log.debug("언팔로우 요청: follower={}, following={}", followerPublicId, followingPublicId);
         followService.unfollow(followerPublicId, followingPublicId);
+        log.debug("언팔로우 완료: follower={}, following={}", followerPublicId, followingPublicId);
         return ResponseEntity.ok().build();
     }
 
