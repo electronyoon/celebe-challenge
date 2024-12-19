@@ -10,6 +10,13 @@ public class ApiException extends RuntimeException {
     private final Object errorData;
     private final String userId;
 
+    public ApiException(String message, HttpStatus status) {
+        this.message = message;
+        this.status = status;
+        this.errorData = null;
+        this.userId = null;
+    }
+
     public ApiException(String message, HttpStatus status, Object errorData) {
         this.message = message;
         this.status = status;
