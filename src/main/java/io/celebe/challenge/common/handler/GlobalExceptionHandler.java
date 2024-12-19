@@ -1,18 +1,16 @@
 package io.celebe.challenge.common.handler;
 
 import io.celebe.challenge.common.exception.ApiException;
+import io.celebe.challenge.common.response.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -25,17 +23,25 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             @NonNull HttpStatusCode statusCode,
             @NonNull WebRequest request) {
 
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("timestamp", LocalDateTime.now());
-        response.put("status", statusCode.value());
-        response.put("error", HttpStatus.valueOf(statusCode.value()).getReasonPhrase());
-        response.put("message", ex.getMessage());
-
-        if (ex instanceof ApiException) {
-            response.put("data", ((ApiException) ex).getErrorData());
-        }
+        ErrorResponse response = ErrorResponse.of(
+            statusCode.value(),
+            HttpStatus.valueOf(statusCode.value()).getReasonPhrase(),
+            ex.getMessage()
+        );
 
         return super.handleExceptionInternal(ex, response, headers, statusCode, request);
     }
+
+
+    @ExceptionHandler(ApiException.class)
+    protected ResponseEntity<ErrorResponse> handleApiException(ApiException ex) {
+        ErrorResponse response = ErrorResponse.of(
+            ex.getStatus().value(),
+            ex.getStatus().getReasonPhrase(),
+            ex.getMessage()
+        );
+        return ResponseEntity.status(ex.getStatus()).body(response);
+    }
+
 }
 
