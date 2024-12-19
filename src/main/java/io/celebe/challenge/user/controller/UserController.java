@@ -1,6 +1,6 @@
 package io.celebe.challenge.user.controller;
 
-import io.celebe.challenge.user.domain.User;
+import io.celebe.challenge.user.dto.UserProfileDto;
 import io.celebe.challenge.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{publicId}")
-    public ResponseEntity<User> getProfile(@PathVariable String publicId) {
+    public ResponseEntity<UserProfileDto> getProfile(@PathVariable String publicId) {
         return ResponseEntity.ok(userService.getProfile(publicId));
     }
 }
