@@ -7,6 +7,7 @@ build/
 
 ### SQLite ###
 *.db
+!celebe-local.db
 
 ### Logs ###
 *.log
