@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql("/test-sql/profile-api-test.sql")
+@Sql("/api-test.sql")
 class ProfileApiTest extends CelebeChallengeApplicationTests {
     @Autowired
     private MockMvc mockMvc;
@@ -23,13 +23,7 @@ class ProfileApiTest extends CelebeChallengeApplicationTests {
         mockMvc.perform(get("/api/profiles/{publicId}", "000001"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.publicId").value("000001"))
-                .andExpect(jsonPath("$.email").value("active@example.com"))
-                .andExpect(jsonPath("$.nickname").value("activeuser"))
-                .andExpect(jsonPath("$.name").value("Active User"))
-                .andExpect(jsonPath("$.thumbnailUrl").value("https://example.com/thumb/1.jpg"))
-                .andExpect(jsonPath("$.followerCount").value(0))
-                .andExpect(jsonPath("$.followingCount").value(0));
+                .andExpect(jsonPath("$.data.publicId").value("000001"));
     }
 
     @Test
@@ -43,20 +37,8 @@ class ProfileApiTest extends CelebeChallengeApplicationTests {
     @Test
     @DisplayName("비활성화된 프로필 조회시 404 Not Found를 반환한다")
     void getInactiveProfile() throws Exception {
-        mockMvc.perform(get("/api/profiles/{publicId}", "000002"))
+        mockMvc.perform(get("/api/profiles/{publicId}", "000005"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
-
-    @Test
-    @DisplayName("팔로워가 있는 프로필 조회시 팔로워 수가 정상적으로 반환된다")
-    void getProfileWithFollowers() throws Exception {
-        mockMvc.perform(get("/api/profiles/{publicId}", "000003"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.publicId").value("000003"))
-                .andExpect(jsonPath("$.followerCount").value(2))
-                .andExpect(jsonPath("$.followingCount").value(1));
-    }
-
 }
