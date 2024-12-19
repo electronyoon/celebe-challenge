@@ -1,9 +1,6 @@
 spring:
   datasource:
     url: jdbc:sqlite:file::memory:?cache=shared
-  sql:
-    init:
-      mode: always
 
 logging:
   level:

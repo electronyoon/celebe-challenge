@@ -1,21 +1,25 @@
-INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, is_active, created_at, updated_at)
-VALUES ('000001', 'user1@example.com', 'user1', 'User One', 'https://example.com/thumb/user1.jpg', 2, 1, 1,
+INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, post_count, is_active, created_at, updated_at)
+VALUES ('nblxyl', 'electronyoon@gmail.com', '윤전자', '김상우', 'https://example.com/thumb/user1.jpg', 0, 0, 0, 1,
         DATETIME('now'), DATETIME('now'));
 
-INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, is_active, created_at, updated_at)
-VALUES ('000002', 'user2@example.com', 'user2', 'User Two', 'https://example.com/thumb/user2.jpg', 1, 2, 1,
+INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, post_count, is_active, created_at, updated_at)
+VALUES ('000001', 'user1@example.com', 'user1', 'User One', 'https://example.com/thumb/user1.jpg', 2, 1, 0, 1,
         DATETIME('now'), DATETIME('now'));
 
-INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, is_active, created_at, updated_at)
-VALUES ('000003', 'user3@example.com', 'user3', 'User Three', 'https://example.com/thumb/user3.jpg', 0, 1, 1,
+INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, post_count, is_active, created_at, updated_at)
+VALUES ('000002', 'user2@example.com', 'user2', 'User Two', 'https://example.com/thumb/user2.jpg', 1, 2, 0, 1,
         DATETIME('now'), DATETIME('now'));
 
-INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, is_active, created_at, updated_at)
-VALUES ('000004', 'user4@example.com', 'user4', 'User Four', 'https://example.com/thumb/user4.jpg', 1, 0, 1,
+INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, post_count, is_active, created_at, updated_at)
+VALUES ('000003', 'user3@example.com', 'user3', 'User Three', 'https://example.com/thumb/user3.jpg', 0, 1, 0, 1,
         DATETIME('now'), DATETIME('now'));
 
-INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, is_active, created_at, updated_at)
-VALUES ('000005', 'user5@example.com', 'user5', 'User Five', 'https://example.com/thumb/user5.jpg', 1, 1, 0,
+INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, post_count, is_active, created_at, updated_at)
+VALUES ('000004', 'user4@example.com', 'user4', 'User Four', 'https://example.com/thumb/user4.jpg', 1, 0, 0, 1,
+        DATETIME('now'), DATETIME('now'));
+
+INSERT INTO users (public_id, email, nickname, name, thumbnail_url, follower_count, following_count, post_count, is_active, created_at, updated_at)
+VALUES ('000005', 'user5@example.com', 'user5', 'User Five', 'https://example.com/thumb/user5.jpg', 1, 1, 0, 0,
         DATETIME('now'), DATETIME('now'));
 
 -- 000001: 맞팔 1명(<->000002), 팔로잉 1명(->000002), 팔로워 2명(<-000002, 000003), 언팔로우 1명(->000003)

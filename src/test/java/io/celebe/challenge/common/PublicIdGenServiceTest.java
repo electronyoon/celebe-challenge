@@ -1,6 +1,5 @@
 package io.celebe.challenge.common;
 
-import io.celebe.challenge.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,9 +16,6 @@ import static org.mockito.Mockito.verify;
 public class PublicIdGenServiceTest {
     @Mock
     private PublicIdGenerator generator;
-
-    @Mock
-    private UserRepository userRepository;
 
     private PublicIdGenService service;
 

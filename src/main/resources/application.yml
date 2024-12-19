@@ -4,6 +4,7 @@ spring:
     url: jdbc:sqlite:celebe-local.db
   sql:
     init:
+      mode: always
       schema-locations: classpath:schema.sql
 
 mybatis:

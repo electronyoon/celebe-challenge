@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql("/test-sql/follow-api-test.sql")
+@Sql("/api-test.sql")
 class FollowApiTest extends CelebeChallengeApplicationTests {
 
     @Autowired
