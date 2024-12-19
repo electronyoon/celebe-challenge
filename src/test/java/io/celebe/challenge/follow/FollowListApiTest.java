@@ -1,19 +1,25 @@
 package io.celebe.challenge.follow;
 
-import io.celebe.challenge.CelebeChallengeApplicationTests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+@Transactional
 @Sql("/test-sql/follow-api-test.sql")
-class FollowListApiTest extends CelebeChallengeApplicationTests {
+class FollowListApiTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -25,8 +31,10 @@ class FollowListApiTest extends CelebeChallengeApplicationTests {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalCount").value(2))
-                .andExpect(jsonPath("$.users[0].publicId").value("000002"))     // 맞팔 유저가 첫번째
-                .andExpect(jsonPath("$.users[1].publicId").value("000003"));    // 단방향 팔로워가 두번째
+                .andExpect(jsonPath("$.users[0].publicId").value("000002"))  // 맞팔 유저가 첫번째
+                .andExpect(jsonPath("$.users[0].isFollowedBack").value(true))
+                .andExpect(jsonPath("$.users[1].publicId").value("000003"))  // 단방향 팔로워가 두번째
+                .andExpect(jsonPath("$.users[1].isFollowedBack").value(false));
     }
 
     @Test
@@ -36,7 +44,8 @@ class FollowListApiTest extends CelebeChallengeApplicationTests {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalCount").value(1))
-                .andExpect(jsonPath("$.users[0].publicId").value("000002"));
+                .andExpect(jsonPath("$.users[0].publicId").value("000002"))
+                .andExpect(jsonPath("$.users[0].isFollowedBack").value(true));
     }
 
     @Test
