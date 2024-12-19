@@ -43,7 +43,7 @@ public class FollowListService {
             .build();
     }
 
-    public FollowListDto getFollowing(String publicId) {
+    public FollowListDto getFollowings(String publicId) {
         log.debug("팔로잉 목록 조회 시작: publicId={}", publicId);
         Long userId = userRepository.findIdByPublicId(publicId);
         if (userId == null) {
