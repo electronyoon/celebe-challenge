@@ -46,6 +46,8 @@ erDiagram
 - 팔로잉 목록 조회: GET, /api/profiles/{publicId}/followings
 - 팔로워 목록 조회: GET, /api/profiles/{publicId}/followers
 - Swagger에서 더 자세한 내용을 살펴보실 수 있습니다. 진입점은 `/swagger-ui.html` 또는 `/swagger-ui/index.html` 입니다.
+  ![Swagger UI](https://github.com/user-attachments/assets/21151caf-f3ca-40f1-adb3-1547b11c2376)
+
 
 ### 3. 응답과 예외처리는 공통 규격이 있습니다. (#4, #9)
 - [GlobalExceptionHandler](src/main/java/io/celebe/challenge/common/handler/GlobalExceptionHandler.java)는 `@RestControllerAdvice`로 공통 응답을 랩핑합니다.
@@ -70,6 +72,3 @@ erDiagram
 - (#8) 실제 앱처럼 고유 식별값(publicId, 6자리)을 생성하고 검증하는 테스트 코드가 있으나 요구사항에 벗어난 것 같아 기술하지 않았습니다.
 - (#10) 프로필 팔로우와 언팔로우에 따라 follower_count, following_count를 lazy하게 update하려고 구상했으나 시간 부족으로 구현하지 못했습니다.
 - (#20) 목록 조회 방법을 여러가지로 구상해 성능을 비교해 보고 싶었으나 시간 부족으로 조사하지 못했습니다.
-
-# 사족
-꼭 일해보고 싶은 회사입니다 잘 부탁드립니다!
